@@ -4,6 +4,7 @@ import CartContext from '../../contexts/CartContext';
 import UserContext from '../../contexts/UserContext';
 import star from '../../assets/white-star.png';
 import basket from '../../assets/basket.png';
+import config from '../../config.json';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
@@ -14,7 +15,7 @@ const ProductCard = ({ product }) => {
 		<article className='product_card'>
 			<div className='product_image'>
 				<NavLink to={`/product/${product?._id}`}>
-					<img src={`http://localhost:5000/products/${product?.images[0]}`} alt='product image' />
+					<img src={`${config.backendURL}/products/${product?.images[0]}`} alt='product image' />
 				</NavLink>
 			</div>
 
