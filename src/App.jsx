@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import UserContext from './contexts/UserContext';
 import Routing from './components/Routing/Routing';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import setAuthToken from './utils/setAuthToken';
 import {
 	addToCartAPI,
