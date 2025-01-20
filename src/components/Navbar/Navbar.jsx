@@ -1,4 +1,10 @@
 import "./Navbar.css";
+import rocket from "../../assets/rocket.png";
+import star from "../../assets/glowing-star.png";
+import idButton from "../../assets/id-button.png";
+import memo from "../../assets/memo.png";
+import order from "../../assets/package.png";
+import lock from "../../assets/locked.png";
 
 const Navbar = () => {
   return (
@@ -16,7 +22,11 @@ const Navbar = () => {
           </button>
         </form>
       </div>
-      <div className="align_center navbar_links"></div>
+      <div className="align_center navbar_links">
+        <a href="#" className="align_center">
+          Home <img src={rocket} alt="" className="link_emoji" />
+        </a>
+      </div>
     </nav>
   );
 };

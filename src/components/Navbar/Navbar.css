@@ -38,3 +38,16 @@
   color: #fff;
   cursor: pointer;
 }
+
+.navbar_links {
+  font-size: 20px;
+}
+
+.navbar_links > a {
+  margin: 15px;
+}
+
+.link_emoji {
+  width: 25px;
+  margin-left: 5px;
+}
