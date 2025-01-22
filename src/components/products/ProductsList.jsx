@@ -43,6 +43,7 @@ const ProductsList = () => {
         {error && <em className="form_error">{error}</em>}
         {isLoading && skeletons.map((n) => <ProductCardSkeleton key={n} />)}
         {data.products &&
+          !isLoading &&
           data.products.map((p) => (
             <ProductCard
               key={p._id}
