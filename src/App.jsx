@@ -5,6 +5,7 @@ import Routing from "./components/Routing/Routing";
 import { jwtDecode } from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { addToCartAPI } from "./services/cartServices";
+import { ToastContainer, toast } from "react-toastify";
 
 //만약 토큰이 있으면 axios 설정에 추가됨
 setAuthToken(localStorage.getItem("token"));
@@ -23,10 +24,10 @@ function App() {
       updatedCart[productIndex].quantity += quantity;
     }
     setCart(updatedCart);
-
+    //DB에 장바구니(cart) 저장 (유저별) {제품ID, 개수}
     addToCartAPI(product._id, quantity)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.response));
+      .then((res) => toast.success("상품 추가 성공!"))
+      .catch((err) => toast.error("상품 추가에 실패했습니다."));
   };
 
   useEffect(() => {
@@ -45,6 +46,7 @@ function App() {
     <div className="app">
       <Navbar user={user} cartCount={cart.length} />
       <main>
+        <ToastContainer position="bottom-right" />
         <Routing addToCart={addToCart} />
       </main>
     </div>
