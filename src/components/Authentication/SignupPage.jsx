@@ -11,17 +11,16 @@ const SignupPage = () => {
   const {
     register,
     handleSubmit,
-    reset,
     watch,
     formState: { errors },
   } = useForm();
   const submitData = async (formData) => {
     try {
       await signup(formData, profilePic);
+      window.location = "/";
     } catch (error) {
       setFormError(error.response.data.message);
     }
-    reset();
   };
   return (
     <section className="align_center form_page">

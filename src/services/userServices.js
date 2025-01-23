@@ -9,10 +9,12 @@ export async function signup(user, profile) {
   body.append("deliveryAddress", user.deliveryAddress);
   body.append("profilePic", profile);
 
-  await apiClient.post("user/signup", body);
+  const { data } = await apiClient.post("user/signup", body);
+  localStorage.setItem("token", data.token);
 }
 
 //유저 로그인 함수
 export async function login(user) {
-  await apiClient.post("user/login", user);
+  const { data } = await apiClient.post("user/login", user);
+  localStorage.setItem("token", data.token);
 }

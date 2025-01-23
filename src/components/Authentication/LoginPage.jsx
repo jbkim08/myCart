@@ -9,16 +9,15 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
   const submitData = async (formData) => {
     try {
       await login(formData);
+      window.location = "/"; //로그인 후 홈페이지로
     } catch (error) {
       setFormError(error.response.data.message);
     }
-    reset();
   };
   return (
     <section className="align_center form_page">
