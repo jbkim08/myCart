@@ -1,16 +1,23 @@
+import { useState } from "react";
+import { login } from "../../services/userServices";
 import "./LoginPage.css";
 import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
   // const passwordRef = useRef(null);
+  const [formError, setFormError] = useState("");
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const submitData = (formData) => {
-    console.log(formData);
+  const submitData = async (formData) => {
+    try {
+      await login(formData);
+    } catch (error) {
+      setFormError(error.response.data.message);
+    }
     reset();
   };
   return (
@@ -64,7 +71,7 @@ const LoginPage = () => {
               비밀번호 보이게
             </button> */}
           </div>
-
+          {formError && <em className="form_error">{formError}</em>}
           <button type="submit" className="search_button form_submit">
             Submit
           </button>

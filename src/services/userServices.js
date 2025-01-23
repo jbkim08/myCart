@@ -11,3 +11,8 @@ export async function signup(user, profile) {
 
   await apiClient.post("user/signup", body);
 }
+
+//유저 로그인 함수
+export async function login(user) {
+  await apiClient.post("user/login", user);
+}
