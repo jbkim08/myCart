@@ -7,6 +7,10 @@ import { jwtDecode } from "jwt-decode";
 function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]); //장바구니
+  const addToCart = (product, quantity) => {
+    setCart([...cart, { product, quantity }]);
+  };
+
   useEffect(() => {
     try {
       const jwt = localStorage.getItem("token");
@@ -23,7 +27,7 @@ function App() {
     <div className="app">
       <Navbar user={user} cartCount={cart.length} />
       <main>
-        <Routing />
+        <Routing addToCart={addToCart} />
       </main>
     </div>
   );
