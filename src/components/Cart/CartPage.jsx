@@ -5,11 +5,13 @@ import QuantityInput from "../SingleProduct/QuantityInput";
 import Table from "../Common/Table";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
+import CartContext from "../../contexts/CartContext";
 
-const CartPage = ({ cart }) => {
+const CartPage = () => {
   //console.log(cart);
   const [subTotal, setSubTotal] = useState(0);
   const user = useContext(UserContext); //useContext 로 UserContext 가져오기
+  const { cart, addToCart } = useContext(CartContext);
   useEffect(() => {
     let total = 0;
     cart.forEach((item) => {

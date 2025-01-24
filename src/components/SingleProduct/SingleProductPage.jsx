@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import useData from "../../Hook/useData";
 import Loader from "../Common/Loader";
 
-const SingleProductPage = ({ addToCart }) => {
+const SingleProductPage = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams(); //주소변수 id를 받음.
   const { data: product, error, isLoading } = useData(`products/${id}`);
   //console.log(product);
+  const { addToCart } = useContext(CartContext);
   return (
     <section className="align_center single_product">
       {error && <em className="form_error">{error}</em>}
