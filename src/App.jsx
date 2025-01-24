@@ -6,7 +6,9 @@ import { jwtDecode } from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import {
   addToCartAPI,
+  decreaseProductAPI,
   getCartAPI,
+  increaseProductAPI,
   removeFromCartAPI,
 } from "./services/cartServices";
 import { ToastContainer, toast } from "react-toastify";
@@ -49,10 +51,12 @@ function App() {
     if (type === "increase") {
       updatedCart[i].quantity += 1; //그 상품에 수량 1 증가
       setCart(updatedCart);
+      increaseProductAPI(id).catch((err) => toast.error("상품 증가 에러"));
     }
     if (type === "decrease") {
       updatedCart[i].quantity -= 1; //그 상품에 수량 1 증가
       setCart(updatedCart);
+      decreaseProductAPI(id).catch((err) => toast.error("상품 감소 에러"));
     }
   };
   //서버에서 장바구니 정보 가져옴
