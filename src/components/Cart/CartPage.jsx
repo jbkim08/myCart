@@ -3,11 +3,13 @@ import remove from "../../assets/remove.png";
 import user from "../../assets/user.webp";
 import QuantityInput from "../SingleProduct/QuantityInput";
 import Table from "../Common/Table";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../../contexts/UserContext";
 
 const CartPage = ({ cart }) => {
   //console.log(cart);
   const [subTotal, setSubTotal] = useState(0);
+  const user = useContext(UserContext); //useContext 로 UserContext 가져오기
   useEffect(() => {
     let total = 0;
     cart.forEach((item) => {
@@ -18,10 +20,13 @@ const CartPage = ({ cart }) => {
   return (
     <section className="align_center cart_page">
       <div className="align_center user_info">
-        <img src={user} alt="user profile" />
+        <img
+          src={`http://localhost:5000/profile/${user?.profilePic}`}
+          alt="user profile"
+        />
         <div>
-          <p className="user_name">Dooly</p>
-          <p className="user_email">dooly@naver.com</p>
+          <p className="user_name">{user?.name}</p>
+          <p className="user_email">{user?.email}</p>
         </div>
       </div>
 
