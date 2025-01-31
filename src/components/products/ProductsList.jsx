@@ -9,15 +9,17 @@ const ProductsList = () => {
   const [search, setSearch] = useSearchParams(); //요청주소 뒤의 쿼리스트링
   const category = search.get("category"); //category=값 을 가져옴
   const page = search.get("page"); //몇번째 페이지
+  const searchQuery = search.get("search");
   const { data, error, isLoading } = useData(
     "products",
     {
       params: {
+        search: searchQuery,
         category,
         page,
       },
     },
-    [category, page]
+    [searchQuery, category, page]
   );
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
   //console.log(data);
