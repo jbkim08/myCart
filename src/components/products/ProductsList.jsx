@@ -4,9 +4,13 @@ import useData from "../../Hook/useData";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../Common/Pagination";
+import { useEffect, useState } from "react";
 
 const ProductsList = () => {
   const [search, setSearch] = useSearchParams(); //요청주소 뒤의 쿼리스트링
+  const [sortBy, setSortBy] = useState("");
+  console.log("선택정렬: " + sortBy);
+  const [sortedProducts, setSortedProducts] = useState([]);
   const category = search.get("category"); //category=값 을 가져옴
   const page = search.get("page"); //몇번째 페이지
   const searchQuery = search.get("search");
@@ -28,11 +32,37 @@ const ProductsList = () => {
     const currentParams = Object.fromEntries([...search]);
     setSearch({ ...currentParams, page: page });
   };
+  //데이터를 선택정렬방법으로 정렬하기
+  useEffect(() => {
+    if (data && data.products) {
+      const products = [...data.products]; //제품들을 복사
+      if (sortBy === "price desc") {
+        setSortedProducts(products.sort((a, b) => b.price - a.price));
+      } else if (sortBy === "price asc") {
+        setSortedProducts(products.sort((a, b) => a.price - b.price));
+      } else if (sortBy === "rate desc") {
+        setSortedProducts(
+          products.sort((a, b) => b.reviews.rate - a.reviews.rate)
+        );
+      } else if (sortBy === "rate asc") {
+        setSortedProducts(
+          products.sort((a, b) => a.reviews.rate - b.reviews.rate)
+        );
+      } else {
+        setSortedProducts(products);
+      }
+    }
+  }, [sortBy, data]);
   return (
     <section className="products_list_section">
       <header className="align_center products_list_header">
         <h2>상품목록</h2>
-        <select name="sort" id="" className="products_sorting">
+        <select
+          onChange={(e) => setSortBy(e.target.value)}
+          name="sort"
+          id=""
+          className="products_sorting"
+        >
           <option value="">정렬방법</option>
           <option value="price desc">가격높은순</option>
           <option value="price asc">가격낮은순</option>
@@ -44,9 +74,9 @@ const ProductsList = () => {
       <div className="products_list">
         {error && <em className="form_error">{error}</em>}
         {isLoading && skeletons.map((n) => <ProductCardSkeleton key={n} />)}
-        {data.products &&
+        {sortedProducts &&
           !isLoading &&
-          data.products.map((product) => (
+          sortedProducts.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
       </div>
